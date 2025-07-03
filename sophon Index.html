@@ -14,16 +14,69 @@
       padding: 0;
       background-color: #f4f4f4;
       color: #333;
+      scroll-behavior: smooth;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #002244;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .top-bar img.logo {
+      width: 60px;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.5em;
+      color: white;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .top-bar nav {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .top-bar nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .top-bar nav a:hover,
+    .top-bar nav a.active {
+      color: #ffcc00;
+    }
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .top-bar {
+        flex-wrap: wrap;
+      }
+      .top-bar nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 10px;
+      }
+      .top-bar nav.show {
+        display: flex;
+      }
+      .top-bar nav a {
+        margin: 5px 0;
+      }
     }
     header {
       background-color: #003366;
       color: white;
       padding: 40px 20px;
       text-align: center;
-    }
-    header img.logo {
-      width: 100px;
-      margin-bottom: 20px;
     }
     header h1 {
       margin: 0;
@@ -67,16 +120,49 @@
       text-decoration: none;
       font-size: 1.5em;
     }
+    .contact-section {
+      text-align: center;
+    }
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #003366;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 1.2em;
+      cursor: pointer;
+      display: none;
+      z-index: 999;
+    }
+    #back-to-top:hover {
+      background: #ffcc00;
+      color: #003366;
+    }
   </style>
 </head>
 <body>
-  <header>
+  <div class="top-bar">
     <img src="sophon_logo_web.png" alt="Sophon Tech Logo" class="logo">
+    <button class="menu-toggle" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav id="nav-menu">
+      <a href="#vision">Vision</a>
+      <a href="#services">Services</a>
+      <a href="#why">Why Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <header>
     <h1>Sophon Tech Solutions</h1>
     <p><em>Empower the Future: Innovate, Connect, Scale</em></p>
   </header>
 
-  <section>
+  <section id="vision">
     <h2>Our Vision</h2>
     <img src="https://images.unsplash.com/photo-1537498425277-c283d32ef9db" alt="Cloud technology vision illustration">
     <p>
@@ -84,7 +170,7 @@
     </p>
   </section>
 
-  <section>
+  <section id="services">
     <h2>What We Offer</h2>
     <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" alt="Technology solutions illustration">
     <ul>
@@ -96,7 +182,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="why">
     <h2>Why Choose Us?</h2>
     <p>
       At Sophon Tech Solutions, we combine expertise with creativity to deliver results that matter. Our team of professionals is driven by a passion for innovation and a commitment to excellence. Whether you're a startup, SME, or large enterprise, we tailor our solutions to meet your specific needs.
@@ -109,7 +195,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="contact" class="contact-section">
     <h2>Get in Touch</h2>
     <p>
       Ready to take your tech to the next level? Reach out to us for consultations, partnerships, or support.
@@ -130,5 +216,20 @@
   <footer>
     &copy; 2025 Sophon Tech Solutions | All Rights Reserved
   </footer>
+
+  <div id="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" title="Back to Top">
+    ↑
+  </div>
+
+  <script>
+    const backToTopBtn = document.getElementById('back-to-top');
+    const nav = document.getElementById('nav-menu');
+    function toggleMenu() {
+      nav.classList.toggle('show');
+    }
+    window.addEventListener('scroll', () => {
+      backToTopBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+  </script>
 </body>
 </html>
